@@ -1,0 +1,19 @@
+version: "3.8"
+services:
+  chat:
+    build:
+      dockerfile: Dockerfile
+      context: .
+    image: tcpserverchat:latest
+    ports:
+      - "8000:8000"
+      - "9090:9090"  # /metrics
+      - "6060:6060"  # pprof
+  prometheus:
+    image: prom/prometheus:latest
+    volumes:
+      - ./config/prometheus.yml:/etc/prometheus/prometheus.yml
+    ports:
+      - "9091:9090"
+networks:
+  default:

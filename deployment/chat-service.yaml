@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: tcpserverchat
+spec:
+  selector:
+    app: chat
+  ports:
+    - name: chat
+      port: 8000
+    - name: metrics
+      port: 9090
