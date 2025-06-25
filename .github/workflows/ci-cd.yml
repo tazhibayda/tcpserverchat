@@ -52,9 +52,8 @@ jobs:
         uses: azure/k8s-set-context@v4
         with:
           method: kubeconfig
-          kubeconfig: echo "${{ secrets.KUBE_CONFIG_DATA }}" | base64 --decode > kubeconfig
-                      chmod 600 kubeconfig
-                      export KUBECONFIG=$PWD/kubeconfig
+          kubeconfig: ${{ secrets.KUBE_CONFIG_DATA }}
+
 
       - name: Deploy to Kubernetes
         uses: azure/k8s-deploy@v5
@@ -63,4 +62,4 @@ jobs:
             deployment/chat-deployment.yaml
             deployment/chat-service.yaml
           images: |
-            ${{ secrets.DOCKERHUB_USERNAME }}/chat-server:latest
+            ${{ secrets.DOCKERHUB_USERNAME }}/tcpserverchat:latest
