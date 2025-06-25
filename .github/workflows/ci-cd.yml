@@ -52,7 +52,9 @@ jobs:
         uses: azure/k8s-set-context@v4
         with:
           method: kubeconfig
-          kubeconfig: ${{ secrets.KUBE_CONFIG_DATA }}
+          kubeconfig: echo "${{ secrets.KUBE_CONFIG_DATA }}" | base64 --decode > kubeconfig
+                      chmod 600 kubeconfig
+                      export KUBECONFIG=$PWD/kubeconfig
 
       - name: Deploy to Kubernetes
         uses: azure/k8s-deploy@v5
