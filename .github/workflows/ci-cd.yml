@@ -54,7 +54,7 @@ jobs:
         uses: azure/k8s-deploy@v5
         with:
           manifests: |
-            deploy/deployment.yaml
-            deploy/service.yaml
+            deployment/chat-deployment.yaml
+            deployment/chat-service.yaml
           images: |
             ${{ secrets.DOCKERHUB_USERNAME }}/chat-server:latest
