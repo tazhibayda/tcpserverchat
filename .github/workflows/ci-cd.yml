@@ -49,21 +49,19 @@ jobs:
         with:
           version: 'v1.27.0'
 
+      - name: Debug kubeconfig
+        run: |
+          echo "${{ secrets.KUBE_CONFIG_DATA }}" | base64 --decode | head -n 20
+
       - name: Set Kubernetes context
         uses: azure/k8s-set-context@v4
         with:
           method: kubeconfig
           kubeconfig: ${{ secrets.KUBE_CONFIG_DATA }}
 
-      - name: Debug kubeconfig
-        run: |
-          echo "${{ secrets.KUBE_CONFIG_DATA }}" | base64 --decode | head -n 20
-
       - name: Deploy to Kubernetes
         uses: azure/k8s-deploy@v5
         with:
-          manifests: |
-            deployment/chat-deployment.yaml
-            deployment/chat-service.yaml
+          manifests: deployment/
           images: |
             ${{ secrets.DOCKERHUB_USERNAME }}/tcpserverchat:latest
