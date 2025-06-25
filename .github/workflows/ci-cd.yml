@@ -37,6 +37,7 @@ jobs:
           docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/chat-server:latest .
           docker push ${{ secrets.DOCKERHUB_USERNAME }}/chat-server:latest
 
+
   deploy_to_k8s:
     needs: build_and_push
     runs-on: ubuntu-latest
@@ -54,6 +55,9 @@ jobs:
           method: kubeconfig
           kubeconfig: ${{ secrets.KUBE_CONFIG_DATA }}
 
+      - name: Debug kubeconfig
+        run: |
+          echo "${{ secrets.KUBE_CONFIG_DATA }}" | base64 --decode | head -n 20
 
       - name: Deploy to Kubernetes
         uses: azure/k8s-deploy@v5
