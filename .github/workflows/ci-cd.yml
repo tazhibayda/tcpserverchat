@@ -62,6 +62,8 @@ jobs:
       - name: Deploy to Kubernetes
         uses: azure/k8s-deploy@v5
         with:
-          manifests: deployment/
+          manifests: |
+            deployment/chat-deployment.yaml
+            deployment/chat-service.yaml
           images: |
             ${{ secrets.DOCKERHUB_USERNAME }}/tcpserverchat:latest
