@@ -61,7 +61,10 @@ jobs:
 
       - name: Deploy to Kubernetes
         uses: azure/k8s-deploy@v5
+        env:
+          KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA }}
         with:
+          namespace: monitoring
           manifests: |
             deployment/chat-deployment.yaml
             deployment/chat-service.yaml
