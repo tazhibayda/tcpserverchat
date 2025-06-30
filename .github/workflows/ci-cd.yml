@@ -49,10 +49,6 @@ jobs:
         with:
           version: 'v1.27.0'
 
-      - name: Debug kubeconfig
-        run: |
-          echo "${{ secrets.KUBE_CONFIG_DATA }}" | base64 --decode | head -n 20
-
       - name: Set kubeconfig
         uses: azure/k8s-set-context@v4
         with:
